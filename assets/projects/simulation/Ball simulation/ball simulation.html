@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Ball Simulation</title>
+    <h1 style="top: 200px; left: 500px; position: relative;">Kavinprasath</h1>
+    <style>
+        /* Basic styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Define the area where balls will move */
+        #area {
+            width: 500px;
+            height: 500px;
+            position: relative;
+            border: 2px solid black;
+        }
+
+        /* Style for the balls */
+        .ball {
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="area"></div>
+    <script>
+        // Define the area object
+const area = {
+    element: document.getElementById('area'),
+    width: 490,
+    height: 490
+  };
+  
+  // Function to move the ball
+  function moveTo(ball, x, y) {
+    ball.style.left = x + 'px';
+    ball.style.top = y + 'px';
+  }
+  
+  // Function to create a new ball
+  function create(color, dx, dy) {
+    const ball = document.createElement('div');
+    ball.className = 'ball';
+    ball.style.backgroundColor = color;
+  
+    area.element.appendChild(ball);
+    ball.dx = dx;
+    ball.dy = dy;
+  
+    return ball;
+  }
+  
+  // Function to update the ball's position
+  function update(ball, x, y) {
+    // Move the ball
+    moveTo(ball, x, y);
+  
+    // Check if the ball hits the boundary and reverse direction if needed
+    if (x <= 0 || x >= area.width - 20) {
+      ball.dx = -ball.dx;
+    }
+    if (y <= 0 || y >= area.height - 20) {
+      ball.dy = -ball.dy;
+    }
+  
+    // Update the position for the next move
+    const newX = x + ball.dx;
+    const newY = y + ball.dy;
+  
+    // Keep the ball moving
+    setTimeout(() => update(ball, newX, newY), 16);
+  }
+  
+  // Initialize the area and create the balls
+  const ball1 = create('blue', 2, 2);
+  const ball2 = create('red', 3, 3);
+  const ball3 = create('green', 4, 4);
+  
+  // Start moving the balls
+  update(ball1, 40, 70);
+  update(ball2, 150, 130);
+  update(ball3, 230, 200);
+  
+    </script>
+</body>
+</html>
